@@ -1,0 +1,27 @@
+package com.ekrema.spring.coupon.system.beans;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Table(name = "companies")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Company {
+
+    @Id
+    @GeneratedValue
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy = "company")
+    private List<Coupon> coupons;
+}
