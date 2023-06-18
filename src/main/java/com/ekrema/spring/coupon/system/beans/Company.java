@@ -1,10 +1,8 @@
 package com.ekrema.spring.coupon.system.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -23,5 +21,8 @@ public class Company {
     private String email;
     private String password;
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy = "company")
+    @ToString.Exclude
+    @JsonIgnore
     private List<Coupon> coupons;
+
 }

@@ -3,10 +3,14 @@ package com.ekrema.spring.coupon.system.services;
 import com.ekrema.spring.coupon.system.beans.Company;
 import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@Lazy
 public interface AdminService {
     void addCompany(Company company) throws CouponSystemException;
 

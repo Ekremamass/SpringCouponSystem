@@ -4,10 +4,12 @@ import com.ekrema.spring.coupon.system.beans.Company;
 import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Lazy
 public class AdminServiceImpl extends ClientService implements AdminService{
     private static final String EMAIL = "admin@admin.com";
     private static final String PASSWORD = "admin";

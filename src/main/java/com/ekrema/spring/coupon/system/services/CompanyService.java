@@ -4,9 +4,13 @@ import com.ekrema.spring.coupon.system.beans.Category;
 import com.ekrema.spring.coupon.system.beans.Company;
 import com.ekrema.spring.coupon.system.beans.Coupon;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Lazy
 public interface CompanyService {
     void addCoupon(Coupon coupon) throws CouponSystemException;
 
@@ -20,5 +24,5 @@ public interface CompanyService {
 
     List<Coupon> getCompanyCoupons(double maxPrice);
 
-    Company getCompanyDetails();
+    Company getCompanyDetails() throws CouponSystemException;
 }
