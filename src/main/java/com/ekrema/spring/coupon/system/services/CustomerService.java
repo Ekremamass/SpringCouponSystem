@@ -6,7 +6,6 @@ import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 
 import java.util.List;
-
 public interface CustomerService {
     void purchaseCoupon(Coupon coupon) throws CouponSystemException;
 
@@ -16,5 +15,5 @@ public interface CustomerService {
 
     List<Coupon> getCustomerCoupons(double maxPrice);
 
-    Customer getCustomerDetails();
+    Customer getCustomerDetails() throws CouponSystemException;
 }

@@ -41,6 +41,8 @@ public class Init implements CommandLineRunner {
         couponRepository.addCouponPurchase(1,3);
         couponRepository.addCouponPurchase(1,2);
         couponRepository.addCouponPurchase(2,1);
+
+        //couponRepository.findByCustomer_Id(1).forEach(System.out::println);
     }
 
 

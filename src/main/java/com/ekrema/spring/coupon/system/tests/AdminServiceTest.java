@@ -18,7 +18,7 @@ public class AdminServiceTest {
 
     private AdminService adminService;
 
-    public void testAsAdmin(){
+    public void testAsAdmin() throws CouponSystemException {
         System.out.println(Art.ADMIN_SERVICE);
 
         Test.test("Admin Service - bad login - wrong email");
@@ -91,27 +91,27 @@ public class AdminServiceTest {
         }
 
         Test.test("Admin Service - bad update company - changed id");
-        c2.setId(2);
+        Company toUpdate = adminService.getOneCompany(11);
+        toUpdate.setId(2);
         try {
-            adminService.updateCompany(11, c2);
+            adminService.updateCompany(11, toUpdate);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Admin Service - bad update company - changed name");
-        c2.setId(11);
-        c2.setName("EEE");
+        toUpdate.setId(11);
+        toUpdate.setName("EEE");
         try {
-            adminService.updateCompany(11, c2);
+            adminService.updateCompany(11, toUpdate);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
-        Test.test("Admin Service - good update company - changed name");
-        c2.setName("EFC");
-        c2.setEmail("info@efc.com");
+        Test.test("Admin Service - good update company - changed email");
+        toUpdate.setEmail("info@efc.com");
         try {
-            adminService.updateCompany(11, c2);
+            adminService.updateCompany(11, toUpdate);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }

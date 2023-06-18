@@ -20,7 +20,7 @@ public class Company {
     private String name;
     private String email;
     private String password;
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy = "company")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", orphanRemoval = true)
     @ToString.Exclude
     @JsonIgnore
     private List<Coupon> coupons;

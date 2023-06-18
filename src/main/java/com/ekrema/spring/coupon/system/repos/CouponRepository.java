@@ -21,4 +21,20 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     List<Coupon> findByCompany_id(int companyId);
     List<Coupon> findByCompany_idAndCategory(int companyId, Category category);
     List<Coupon> findByCompany_idAndPriceLessThanEqual(int companyId, double MaxPrice);
+
+    @Query(value = "SELECT EXISTS (SELECT * FROM spring_coupon_system.customers_coupons WHERE customer_id = ? AND coupons_id = ?)",nativeQuery = true)
+    boolean existsPurchase(int customerId, int couponId);
+
+    @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
+            " FROM spring_coupon_system.coupons\n" +
+            "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=1",nativeQuery = true)
+    List<Coupon> findByCustomer(int customerId);
+    @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
+            " FROM spring_coupon_system.coupons\n" +
+            "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=? And category=?",nativeQuery = true)
+    List<Coupon> findByCustomerAndCategory(int customerId,Category category);
+    @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
+            " FROM spring_coupon_system.coupons\n" +
+            "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=? And price<=?",nativeQuery = true)
+    List<Coupon> findByCustomerAndMaxPrice(int customerId,double maxPrice);
 }

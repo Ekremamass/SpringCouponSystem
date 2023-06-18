@@ -5,13 +5,14 @@ import com.ekrema.spring.coupon.system.beans.Company;
 import com.ekrema.spring.coupon.system.beans.Coupon;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Lazy
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CompanyServiceImpl extends ClientService implements CompanyService{
     private int companyId;
     @Override

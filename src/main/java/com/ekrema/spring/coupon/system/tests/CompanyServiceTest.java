@@ -8,7 +8,6 @@ import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
 import com.ekrema.spring.coupon.system.login.ClientType;
 import com.ekrema.spring.coupon.system.login.LoginManager;
 import com.ekrema.spring.coupon.system.repos.CompanyRepository;
-import com.ekrema.spring.coupon.system.services.AdminService;
 import com.ekrema.spring.coupon.system.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
