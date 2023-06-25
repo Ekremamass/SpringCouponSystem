@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
-
+@Repository
 public interface CouponRepository extends JpaRepository<Coupon,Integer> {
 
     @Transactional
@@ -24,10 +26,14 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
 
     @Query(value = "SELECT EXISTS (SELECT * FROM spring_coupon_system.customers_coupons WHERE customer_id = ? AND coupons_id = ?)",nativeQuery = true)
     boolean existsPurchase(int customerId, int couponId);
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM spring_coupon_system.customers_coupons WHERE coupons_id = ?",nativeQuery = true)
+    void deletePurchaseByCouponId(int id);
 
     @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
             " FROM spring_coupon_system.coupons\n" +
-            "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=1",nativeQuery = true)
+            "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=?",nativeQuery = true)
     List<Coupon> findByCustomer(int customerId);
     @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
             " FROM spring_coupon_system.coupons\n" +
@@ -37,4 +43,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
             " FROM spring_coupon_system.coupons\n" +
             "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=? And price<=?",nativeQuery = true)
     List<Coupon> findByCustomerAndMaxPrice(int customerId,double maxPrice);
+
+    void deleteByEndDateBefore(Date date);
+
+
+
 }

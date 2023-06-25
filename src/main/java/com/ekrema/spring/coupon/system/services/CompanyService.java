@@ -8,17 +8,17 @@ import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import java.util.List;
 
 public interface CompanyService {
-    void addCoupon(Coupon coupon) throws CouponSystemException;
+    void addCoupon(int companyId, Coupon coupon) throws CouponSystemException;
 
-    void updateCoupon(int id, Coupon coupon) throws CouponSystemException;
+    void updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException;
 
-    void deleteCoupon(int id) throws CouponSystemException;
+    void deleteCoupon(int companyId, int id) throws CouponSystemException;
 
-    List<Coupon> getCompanyCoupons();
+    List<Coupon> getCompanyCoupons(int companyId);
 
-    List<Coupon> getCompanyCoupons(Category category);
+    List<Coupon> getCompanyCoupons(int companyId, Category category);
 
-    List<Coupon> getCompanyCoupons(double maxPrice);
+    List<Coupon> getCompanyCoupons(int companyId, double maxPrice);
 
-    Company getCompanyDetails() throws CouponSystemException;
+    Company getCompanyDetails(int companyId) throws CouponSystemException;
 }

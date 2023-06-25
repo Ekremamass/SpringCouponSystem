@@ -14,21 +14,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CustomerServiceImpl extends ClientService implements CustomerService{
-    private int customerId;
-
     @Override
     public boolean login(String email, String password) {
         if (customerRepository.existsByEmailAndPassword(email, password)) {
-            customerId = customerRepository.getIdByEmail(email);
             return true;
         }
         return false;
     }
 
     @Override
-    public void purchaseCoupon(Coupon coupon) throws CouponSystemException {
+    public void purchaseCoupon(int customerId,Coupon coupon) throws CouponSystemException {
         if (!couponRepository.existsById(coupon.getId())) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
@@ -47,22 +43,22 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public List<Coupon> getCustomerCoupons() {
+    public List<Coupon> getCustomerCoupons(int customerId) {
         return couponRepository.findByCustomer(customerId);
     }
 
     @Override
-    public List<Coupon> getCustomerCoupons(Category category) {
+    public List<Coupon> getCustomerCoupons(int customerId,Category category) {
         return couponRepository.findByCustomerAndCategory(customerId,category);
     }
 
     @Override
-    public List<Coupon> getCustomerCoupons(double maxPrice) {
+    public List<Coupon> getCustomerCoupons(int customerId,double maxPrice) {
         return couponRepository.findByCustomerAndMaxPrice(customerId,maxPrice);
     }
 
     @Override
-    public Customer getCustomerDetails() throws CouponSystemException {
+    public Customer getCustomerDetails(int customerId) throws CouponSystemException {
         return customerRepository.findById(customerId).orElseThrow(()->new CouponSystemException(ErrMsg.CUSTOMER_NOT_EXISTS));
     }
 }

@@ -24,6 +24,6 @@ public class Tests implements CommandLineRunner {
     public void run(String... args) throws Exception {
         adminServiceTest.testAsAdmin();
         companyServiceTest.testAsCompany();
-        //customerServiceTest.testAsCustomer();
+//        customerServiceTest.testAsCustomer();
     }
 }

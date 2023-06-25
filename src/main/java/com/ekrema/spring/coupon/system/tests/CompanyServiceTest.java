@@ -8,6 +8,7 @@ import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
 import com.ekrema.spring.coupon.system.login.ClientType;
 import com.ekrema.spring.coupon.system.login.LoginManager;
 import com.ekrema.spring.coupon.system.repos.CompanyRepository;
+import com.ekrema.spring.coupon.system.repos.CouponRepository;
 import com.ekrema.spring.coupon.system.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,9 @@ public class CompanyServiceTest {
     private LoginManager loginManager;
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private CouponRepository couponRepository;
 
     private CompanyService companyService;
 
@@ -52,6 +56,8 @@ public class CompanyServiceTest {
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
+        int companyId = companyRepository.getIdByEmail("KSP@KSP.com");
+
 
         Test.test("Company Service - good add coupon");
         Coupon coupon = Coupon.builder()
@@ -66,14 +72,14 @@ public class CompanyServiceTest {
                 .amount(100)
                 .build();
         try {
-            companyService.addCoupon(coupon);
+            companyService.addCoupon(companyId, coupon);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Company Service - bad add coupon - same title");
         try {
-            companyService.addCoupon(coupon);
+            companyService.addCoupon(companyId, coupon);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
@@ -81,7 +87,7 @@ public class CompanyServiceTest {
         Test.test("Company Service - bad update coupon - changed id");
         coupon.setId(2);
         try {
-            companyService.updateCoupon(6, coupon);
+            companyService.updateCoupon(companyId,6, coupon);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
@@ -90,7 +96,7 @@ public class CompanyServiceTest {
         coupon.setId(6);
         coupon.setCompany(companyRepository.findById(2).orElseThrow(()->new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST)));
         try {
-            companyService.updateCoupon(6, coupon);
+            companyService.updateCoupon(companyId,6, coupon);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
@@ -101,31 +107,31 @@ public class CompanyServiceTest {
         coupon.setTitle("30% OFF Everything!!!");
         coupon.setDescription("price 30% off all products");
         try {
-            companyService.updateCoupon(6, coupon);
+            companyService.updateCoupon(companyId,6, coupon);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Company Service - show all company coupons");
-        companyService.getCompanyCoupons().forEach(System.out::println);
+        companyService.getCompanyCoupons(companyId).forEach(System.out::println);
 
         Test.test("Company Service - show all company coupons - electricity");
-        companyService.getCompanyCoupons(Category.ELECTRICITY).forEach(System.out::println);
+        companyService.getCompanyCoupons(companyId, Category.ELECTRICITY).forEach(System.out::println);
 
         Test.test("Company Service - show all company coupons - max price 500");
-        companyService.getCompanyCoupons(500.0).forEach(System.out::println);
+        companyService.getCompanyCoupons(companyId,500.0).forEach(System.out::println);
 
         Test.test("Company Service - delete coupon id=6");
         try {
-            companyService.deleteCoupon(6);
+            companyService.deleteCoupon(companyId,6);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Company Service - show all company coupons");
-        companyService.getCompanyCoupons().forEach(System.out::println);
+        companyService.getCompanyCoupons(companyId).forEach(System.out::println);
 
         Test.test("Company Service - get company details");
-        System.out.println(companyService.getCompanyDetails());
+        System.out.println(companyService.getCompanyDetails(companyId));
     }
 }

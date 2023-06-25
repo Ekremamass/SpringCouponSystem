@@ -206,7 +206,6 @@ public class AdminServiceTest {
             System.out.println(e.getMessage());
         }
 
-
         Test.test("Admin Service - get all customers");
         adminService.getAllCustomers().forEach(System.out::println);
 

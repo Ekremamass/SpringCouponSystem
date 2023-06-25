@@ -12,20 +12,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CompanyServiceImpl extends ClientService implements CompanyService{
-    private int companyId;
+    //todo : remove companyId and add as argument
     @Override
     public boolean login(String email, String password) {
         if (companyRepository.existsByEmailAndPassword(email, password)) {
-            companyId = companyRepository.getIdByEmail(email);
             return true;
         }
         return false;
     }
 
     @Override
-    public void addCoupon(Coupon coupon) throws CouponSystemException {
+    public void addCoupon(int companyId, Coupon coupon) throws CouponSystemException {
         if (couponRepository.existsByCompany_idAndTitle(companyId, coupon.getTitle())) {
             throw new CouponSystemException(ErrMsg.COUPON_TITLE_EXISTS);
         }
@@ -36,7 +34,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
     }
 
     @Override
-    public void updateCoupon(int id, Coupon coupon) throws CouponSystemException {
+    public void updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException {
         if (!couponRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
@@ -54,33 +52,34 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
     }
 
     @Override
-    public void deleteCoupon(int id) throws CouponSystemException {
+    public void deleteCoupon(int companyId,int id) throws CouponSystemException {
         if (!couponRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
         if (couponRepository.findById(id).get().getCompany().getId() != companyId) {
             throw new CouponSystemException(ErrMsg.COUPON_WRONG_COMPANY);
         }
+        couponRepository.deletePurchaseByCouponId(id);
         couponRepository.deleteById(id);
     }
 
     @Override
-    public List<Coupon> getCompanyCoupons() {
+    public List<Coupon> getCompanyCoupons(int companyId) {
         return couponRepository.findByCompany_id(companyId);
     }
 
     @Override
-    public List<Coupon> getCompanyCoupons(Category category) {
+    public List<Coupon> getCompanyCoupons(int companyId, Category category) {
         return couponRepository.findByCompany_idAndCategory(companyId,category);
     }
 
     @Override
-    public List<Coupon> getCompanyCoupons(double maxPrice) {
+    public List<Coupon> getCompanyCoupons(int companyId, double maxPrice) {
         return couponRepository.findByCompany_idAndPriceLessThanEqual(companyId,maxPrice);
     }
 
     @Override
-    public Company getCompanyDetails() throws CouponSystemException {
+    public Company getCompanyDetails(int companyId) throws CouponSystemException {
         return companyRepository.findById(companyId).orElseThrow(()-> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST));
     }
 }

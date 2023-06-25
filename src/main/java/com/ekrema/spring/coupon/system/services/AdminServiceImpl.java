@@ -1,6 +1,7 @@
 package com.ekrema.spring.coupon.system.services;
 
 import com.ekrema.spring.coupon.system.beans.Company;
+import com.ekrema.spring.coupon.system.beans.Coupon;
 import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
@@ -51,6 +52,13 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         if (!companyRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST);
         }
+        List<Coupon> coupons = couponRepository.findByCompany_id(id);
+        for (Coupon coupon: coupons) {
+            int coupon_id = coupon.getId();
+            couponRepository.deletePurchaseByCouponId(coupon_id);
+            couponRepository.deleteById(coupon_id);
+        }
+
         companyRepository.deleteById(id);
     }
 
