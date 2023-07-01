@@ -9,15 +9,18 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @Lazy
-public class AdminServiceImpl extends ClientService implements AdminService{
+public class AdminServiceImpl extends ClientService implements AdminService {
     private static final String EMAIL = "admin@admin.com";
     private static final String PASSWORD = "admin";
+
     @Override
     public boolean login(String email, String password) {
         return email.equals(EMAIL) && password.equals(PASSWORD);
     }
+
     @Override
     public void addCompany(Company company) throws CouponSystemException {
         int id = company.getId();
@@ -53,7 +56,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
             throw new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST);
         }
         List<Coupon> coupons = couponRepository.findByCompany_id(id);
-        for (Coupon coupon: coupons) {
+        for (Coupon coupon : coupons) {
             int coupon_id = coupon.getId();
             couponRepository.deletePurchaseByCouponId(coupon_id);
             couponRepository.deleteById(coupon_id);
@@ -69,7 +72,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
 
     @Override
     public Company getOneCompany(int id) throws CouponSystemException {
-        return companyRepository.findById(id).orElseThrow(()-> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST));
+        return companyRepository.findById(id).orElseThrow(() -> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST));
     }
 
     @Override
@@ -100,6 +103,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         if (!customerRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_NOT_EXISTS);
         }
+        customerRepository.deletePurchaseByCustomerId(id);
         customerRepository.deleteById(id);
     }
 

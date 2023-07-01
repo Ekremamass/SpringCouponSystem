@@ -100,8 +100,8 @@ public class AdminServiceTest {
         }
 
         Test.test("Admin Service - bad update company - changed name");
+        toUpdate = adminService.getOneCompany(11);
         toUpdate.setId(11);
-        toUpdate.setName("EEE");
         try {
             adminService.updateCompany(11, toUpdate);
         } catch (CouponSystemException e) {
@@ -109,6 +109,7 @@ public class AdminServiceTest {
         }
 
         Test.test("Admin Service - good update company - changed email");
+        toUpdate.setName("EFC");
         toUpdate.setEmail("info@efc.com");
         try {
             adminService.updateCompany(11, toUpdate);

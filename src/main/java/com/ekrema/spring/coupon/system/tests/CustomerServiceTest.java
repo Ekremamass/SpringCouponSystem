@@ -27,14 +27,14 @@ public class CustomerServiceTest {
     public void testAsCustomer() throws CouponSystemException {
         System.out.println(Art.CUSTOMER_SERVICE);
 
-        Test.test("Customer Facade - bad login");
+        Test.test("Customer Service - bad login");
         try {
             customerService = (CustomerService) loginManager.login("stam@email.com", "1234", ClientType.CUSTOMER);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
-        Test.test("Customer Facade - good login");
+        Test.test("Customer Service - good login");
         try {
             customerService = (CustomerService) loginManager.login("johndoe@email.com", "1234", ClientType.CUSTOMER);
         } catch (CouponSystemException e) {
@@ -42,7 +42,7 @@ public class CustomerServiceTest {
         }
         int customerId = customerRepository.getIdByEmail("johndoe@email.com");
 
-        Test.test("Customer Facade - good purchase coupon id=1");
+        Test.test("Customer Service - good purchase coupon id=1");
         Coupon toPurchase = couponRepository.findById(1).orElseThrow(() -> new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS));
         try {
             customerService.purchaseCoupon(customerId,toPurchase);
@@ -50,23 +50,23 @@ public class CustomerServiceTest {
             System.out.println(e.getMessage());
         }
 
-        Test.test("Customer Facade - bad purchase - already purchased");
+        Test.test("Customer Service - bad purchase - already purchased");
         try {
             customerService.purchaseCoupon(customerId,toPurchase);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
-        Test.test("Customer Facade - get customer coupons");
+        Test.test("Customer Service - get customer coupons");
         customerService.getCustomerCoupons(customerId).forEach(System.out::println);
 
-        Test.test("Customer Facade - get customer coupons category=Electricity");
+        Test.test("Customer Service - get customer coupons category=Electricity");
         customerService.getCustomerCoupons(customerId,Category.ELECTRICITY).forEach(System.out::println);
 
-        Test.test("Customer Facade - get customer coupons max_price=3000");
+        Test.test("Customer Service - get customer coupons max_price=3000");
         customerService.getCustomerCoupons(3000).forEach(System.out::println);
 
-        Test.test("Customer Facade - get customer details");
+        Test.test("Customer Service - get customer details");
         System.out.println(customerService.getCustomerDetails(customerId));
     }
 }

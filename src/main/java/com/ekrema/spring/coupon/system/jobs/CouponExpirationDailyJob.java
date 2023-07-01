@@ -1,6 +1,5 @@
 package com.ekrema.spring.coupon.system.jobs;
 
-import ch.qos.logback.core.joran.conditional.ThenAction;
 import com.ekrema.spring.coupon.system.repos.CouponRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

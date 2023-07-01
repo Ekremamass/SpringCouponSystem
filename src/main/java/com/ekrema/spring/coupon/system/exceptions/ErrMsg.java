@@ -22,7 +22,8 @@ public enum ErrMsg {
     COUPON_ALREADY_PURCHASED("cannot purchase coupon again"),
     COUPON_AMOUNT_ZERO("cannot purchase coupon - there is no coupons left"),
     COUPON_EXPIRED("cannot purchase expired coupon"),
-    LOGIN_FAILED("wrong login details");
+    LOGIN_FAILED("wrong login details"),
+    UNAUTHORIZED("token or client type is wrong");
     private String message;
 
     ErrMsg(String message) {

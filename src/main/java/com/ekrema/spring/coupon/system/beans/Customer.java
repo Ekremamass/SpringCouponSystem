@@ -22,6 +22,6 @@ public class Customer {
     private String lastName;
     private String email;
     private String password;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany
     private List<Coupon> coupons;
 }

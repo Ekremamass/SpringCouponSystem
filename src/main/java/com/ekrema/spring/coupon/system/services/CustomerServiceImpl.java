@@ -5,8 +5,6 @@ import com.ekrema.spring.coupon.system.beans.Coupon;
 import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -28,7 +26,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         if (!couponRepository.existsById(coupon.getId())) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
-        if (couponRepository.existsPurchase(customerId, coupon.getId())) {
+        if (couponRepository.existsPurchase(customerId, coupon.getId())==1) {
             throw new CouponSystemException(ErrMsg.COUPON_ALREADY_PURCHASED);
         }
         if (coupon.getAmount() == 0) {
@@ -49,7 +47,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public List<Coupon> getCustomerCoupons(int customerId,Category category) {
-        return couponRepository.findByCustomerAndCategory(customerId,category);
+        return couponRepository.findByCustomerAndCategory(customerId,category.name());
     }
 
     @Override

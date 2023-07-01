@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -25,7 +24,7 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     List<Coupon> findByCompany_idAndPriceLessThanEqual(int companyId, double MaxPrice);
 
     @Query(value = "SELECT EXISTS (SELECT * FROM spring_coupon_system.customers_coupons WHERE customer_id = ? AND coupons_id = ?)",nativeQuery = true)
-    boolean existsPurchase(int customerId, int couponId);
+    Long existsPurchase(int customerId, int couponId);
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM spring_coupon_system.customers_coupons WHERE coupons_id = ?",nativeQuery = true)
@@ -38,7 +37,7 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
             " FROM spring_coupon_system.coupons\n" +
             "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=? And category=?",nativeQuery = true)
-    List<Coupon> findByCustomerAndCategory(int customerId,Category category);
+    List<Coupon> findByCustomerAndCategory(int customerId,String category);
     @Query(value = "SELECT coupons.id,coupons.company_id,coupons.category,coupons.title,coupons.description,coupons.start_date,coupons.end_date,coupons.amount,coupons.price,coupons.image\n" +
             " FROM spring_coupon_system.coupons\n" +
             "INNER JOIN spring_coupon_system.customers_coupons ON coupons.id=customers_coupons.coupons_id WHERE customer_id=? And price<=?",nativeQuery = true)

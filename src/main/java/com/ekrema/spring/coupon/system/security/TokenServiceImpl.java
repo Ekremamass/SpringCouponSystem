@@ -3,6 +3,7 @@ package com.ekrema.spring.coupon.system.security;
 import com.ekrema.spring.coupon.system.beans.User;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
+import com.ekrema.spring.coupon.system.login.ClientType;
 import com.ekrema.spring.coupon.system.repos.CompanyRepository;
 import com.ekrema.spring.coupon.system.repos.CustomerRepository;
 import com.ekrema.spring.coupon.system.services.ClientService;
@@ -43,5 +44,25 @@ public class TokenServiceImpl implements TokenService{
                 .build();
         tokens.put(token,info);
         return token;
+    }
+
+    @Override
+    public boolean isUserAllowed(UUID token, ClientType clientType) {
+        Information info = tokens.get(token);
+        if(info == null){
+            return false;
+        }
+        return info.getClientType().equals(clientType);
+    }
+
+    @Override
+    public void clear() {
+        tokens.entrySet().removeIf(item->item.getValue().getTime()
+                .isBefore(LocalDateTime.now().minusMinutes(30)));
+    }
+
+    @Override
+    public int getId(UUID token) {
+        return tokens.get(token).getId();
     }
 }
