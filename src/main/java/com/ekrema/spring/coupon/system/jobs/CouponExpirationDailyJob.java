@@ -16,9 +16,9 @@ public class CouponExpirationDailyJob {
     private CouponRepository couponRepository;
 
     @Transactional
-    @Scheduled(fixedRate = 1000*60*60*24)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 24)
     public void deleteExpiredCoupon() throws InterruptedException {
-        Thread.sleep(1000*5);
+        Thread.sleep(1000 * 5);
         couponRepository.deleteByEndDateBefore(Date.valueOf(LocalDate.now()));
     }
 }

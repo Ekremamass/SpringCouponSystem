@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company,Integer> {
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
     boolean existsByEmail(String email);
-    boolean existsByEmailAndPassword(String email,String password);
+
+    boolean existsByEmailAndPassword(String email, String password);
+
     boolean existsByName(String name);
-    @Query(value = "SELECT id FROM spring_coupon_system.companies WHERE email = ?;",nativeQuery = true)
+
+    @Query(value = "SELECT id FROM spring_coupon_system.companies WHERE email = ?;", nativeQuery = true)
     int getIdByEmail(String email);
 }

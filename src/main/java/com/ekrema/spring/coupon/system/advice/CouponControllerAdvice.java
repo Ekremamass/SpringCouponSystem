@@ -11,7 +11,7 @@ public class CouponControllerAdvice {
 
     @ExceptionHandler(value = {CouponSystemException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrDetails handleException(Exception e){
+    public ErrDetails handleException(Exception e) {
         return new ErrDetails(e.getMessage());
     }
 }

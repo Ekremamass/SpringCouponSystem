@@ -1,7 +1,7 @@
 package com.ekrema.spring.coupon.system.controllers;
 
-import com.ekrema.spring.coupon.system.beans.User;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
+import com.ekrema.spring.coupon.system.security.User;
 import com.ekrema.spring.coupon.system.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.ekrema.spring.coupon.system.services;
 
-import com.ekrema.spring.coupon.system.beans.User;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
+import com.ekrema.spring.coupon.system.security.User;
 
 import java.util.UUID;
 

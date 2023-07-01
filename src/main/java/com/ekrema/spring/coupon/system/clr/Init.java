@@ -38,9 +38,9 @@ public class Init implements CommandLineRunner {
         customerRepository.saveAll(factoryUtils.initCustomers());
         customerRepository.findAll().forEach(System.out::println);
 
-        couponRepository.addCouponPurchase(1,3);
-        couponRepository.addCouponPurchase(1,2);
-        couponRepository.addCouponPurchase(2,1);
+        couponRepository.addCouponPurchase(1, 3);
+        couponRepository.addCouponPurchase(1, 2);
+        couponRepository.addCouponPurchase(2, 1);
     }
 
 

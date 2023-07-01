@@ -1,4 +1,4 @@
-package com.ekrema.spring.coupon.system.beans;
+package com.ekrema.spring.coupon.system.security;
 
 import com.ekrema.spring.coupon.system.login.ClientType;
 import lombok.AllArgsConstructor;

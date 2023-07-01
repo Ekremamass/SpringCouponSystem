@@ -10,8 +10,8 @@ public class ExpiredTokenRemoval {
     @Autowired
     private TokenService tokenService;
 
-    @Scheduled(fixedRate = 1000*60)
-    public void clear(){
+    @Scheduled(fixedRate = 1000 * 60)
+    public void clear() {
         tokenService.clear();
     }
 }

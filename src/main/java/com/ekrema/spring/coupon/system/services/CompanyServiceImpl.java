@@ -5,14 +5,12 @@ import com.ekrema.spring.coupon.system.beans.Company;
 import com.ekrema.spring.coupon.system.beans.Coupon;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CompanyServiceImpl extends ClientService implements CompanyService{
+public class CompanyServiceImpl extends ClientService implements CompanyService {
     //todo : remove companyId and add as argument
     @Override
     public boolean login(String email, String password) {
@@ -52,7 +50,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
     }
 
     @Override
-    public void deleteCoupon(int companyId,int id) throws CouponSystemException {
+    public void deleteCoupon(int companyId, int id) throws CouponSystemException {
         if (!couponRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
@@ -70,16 +68,16 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
 
     @Override
     public List<Coupon> getCompanyCoupons(int companyId, Category category) {
-        return couponRepository.findByCompany_idAndCategory(companyId,category);
+        return couponRepository.findByCompany_idAndCategory(companyId, category);
     }
 
     @Override
     public List<Coupon> getCompanyCoupons(int companyId, double maxPrice) {
-        return couponRepository.findByCompany_idAndPriceLessThanEqual(companyId,maxPrice);
+        return couponRepository.findByCompany_idAndPriceLessThanEqual(companyId, maxPrice);
     }
 
     @Override
     public Company getCompanyDetails(int companyId) throws CouponSystemException {
-        return companyRepository.findById(companyId).orElseThrow(()-> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST));
+        return companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST));
     }
 }
