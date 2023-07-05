@@ -23,7 +23,7 @@ public class AdminController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("company/add")
+    @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCompany(@RequestHeader(value = "token") UUID token, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
@@ -32,7 +32,7 @@ public class AdminController {
         adminService.addCompany(company);
     }
 
-    @PutMapping("company/update/{id}")
+    @PutMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCompany(@RequestHeader(value = "token") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
@@ -41,7 +41,7 @@ public class AdminController {
         adminService.updateCompany(id, company);
     }
 
-    @DeleteMapping("company/delete/{id}")
+    @DeleteMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompany(@RequestHeader(value = "token") UUID token, @PathVariable int id) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
@@ -67,7 +67,7 @@ public class AdminController {
 
     }
 
-    @PostMapping("customer/add")
+    @PostMapping("customer")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCustomer(@RequestHeader(value = "token") UUID token, @RequestBody Customer customer) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
@@ -76,7 +76,7 @@ public class AdminController {
         adminService.addCustomer(customer);
     }
 
-    @PutMapping("customer/update/{id}")
+    @PutMapping("customer/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(@RequestHeader(value = "token") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
@@ -86,7 +86,7 @@ public class AdminController {
     }
 
 
-    @DeleteMapping("customer/delete/{id}")
+    @DeleteMapping("customer/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@RequestHeader(value = "token") UUID token, @PathVariable int id) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {

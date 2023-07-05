@@ -43,8 +43,8 @@ public class CustomerController {
     }
 
 
-    @GetMapping("coupons/category/{category}")
-    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @PathVariable Category category) throws CouponSystemException {
+    @GetMapping("coupons/category")
+    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @RequestParam Category category) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -52,8 +52,8 @@ public class CustomerController {
         return customerService.getCustomerCoupons(customerId, category);
     }
 
-    @GetMapping("coupons/maxPrice/{maxPrice}")
-    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @PathVariable double maxPrice) throws CouponSystemException {
+    @GetMapping("coupons/maxPrice")
+    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @RequestParam double maxPrice) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
