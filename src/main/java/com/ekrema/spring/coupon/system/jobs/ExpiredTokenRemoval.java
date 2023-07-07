@@ -11,7 +11,7 @@ public class ExpiredTokenRemoval {
     @Autowired
     private TokenService tokenService;
 
-    @Scheduled(fixedRate = 1000 * 60)
+    @Scheduled(fixedRateString = "${token_interval}")
     public void clear() {
         tokenService.clear();
     }
