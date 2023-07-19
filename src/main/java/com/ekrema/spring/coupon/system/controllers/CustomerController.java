@@ -25,7 +25,7 @@ public class CustomerController {
 
     @PostMapping("purchase")
     @ResponseStatus(HttpStatus.CREATED)
-    public void purchaseCoupon(@RequestHeader(value = "token") UUID token, @RequestBody Coupon coupon) throws CouponSystemException {
+    public void purchaseCoupon(@RequestHeader(value = "Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @GetMapping("coupons")
-    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token) throws CouponSystemException {
+    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "Authorization") UUID token) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -44,7 +44,7 @@ public class CustomerController {
 
 
     @GetMapping("coupons/category")
-    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @RequestParam Category category) throws CouponSystemException {
+    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "Authorization") UUID token, @RequestParam Category category) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -53,7 +53,7 @@ public class CustomerController {
     }
 
     @GetMapping("coupons/maxPrice")
-    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "token") UUID token, @RequestParam double maxPrice) throws CouponSystemException {
+    public List<Coupon> getCustomerCoupons(@RequestHeader(value = "Authorization") UUID token, @RequestParam double maxPrice) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -62,7 +62,7 @@ public class CustomerController {
     }
 
     @GetMapping("details")
-    public Customer getCustomerDetails(@RequestHeader(value = "token") UUID token) throws CouponSystemException {
+    public Customer getCustomerDetails(@RequestHeader(value = "Authorization") UUID token) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }

@@ -25,7 +25,7 @@ public class AdminController {
 
     @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCompany(@RequestHeader(value = "token") UUID token, @RequestBody Company company) throws CouponSystemException {
+    public void addCompany(@RequestHeader(value = "Authorization") UUID token, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -34,7 +34,7 @@ public class AdminController {
 
     @PutMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCompany(@RequestHeader(value = "token") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
+    public void updateCompany(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -43,7 +43,7 @@ public class AdminController {
 
     @DeleteMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompany(@RequestHeader(value = "token") UUID token, @PathVariable int id) throws CouponSystemException {
+    public void deleteCompany(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
@@ -51,7 +51,7 @@ public class AdminController {
     }
 
     @GetMapping("companies")
-    public List<Company> getAllCompanies(@RequestHeader(value = "token") UUID token) throws CouponSystemException {
+    public List<Company> getAllCompanies(@RequestHeader(value = "Authorization") UUID token) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINSTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
