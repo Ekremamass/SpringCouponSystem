@@ -2,12 +2,11 @@ package com.ekrema.spring.coupon.system.services;
 
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
+import com.ekrema.spring.coupon.system.security.LoginResponse;
 import com.ekrema.spring.coupon.system.security.TokenService;
 import com.ekrema.spring.coupon.system.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -21,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private TokenService tokenService;
 
     @Override
-    public UUID login(User user) throws CouponSystemException {
+    public LoginResponse login(User user) throws CouponSystemException {
         switch (user.getClientType()) {
             case ADMINSTRATOR:
                 if (!((ClientService) adminService).login(user.getEmail(), user.getPassword())) {
@@ -39,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
                 }
                 break;
         }
-        return tokenService.addToken(user);
+        LoginResponse loginResponse = LoginResponse.builder().email(user.getEmail()).token(tokenService.addToken(user)).clientType(user.getClientType()).build();
+        return loginResponse;
     }
 }
