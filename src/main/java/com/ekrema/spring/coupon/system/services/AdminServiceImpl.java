@@ -22,7 +22,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public void addCompany(Company company) throws CouponSystemException {
+    public Company addCompany(Company company) throws CouponSystemException {
         int id = company.getId();
         if (companyRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COMPANY_ID_EXISTS);
@@ -33,7 +33,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (companyRepository.existsByName(company.getName())) {
             throw new CouponSystemException(ErrMsg.COMPANY_NAME_EXISTS);
         }
-        companyRepository.save(company);
+        return companyRepository.save(company);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public void addCustomer(Customer customer) throws CouponSystemException {
+    public Customer addCustomer(Customer customer) throws CouponSystemException {
         int id = customer.getId();
         if (customerRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_ID_EXISTS);
@@ -84,7 +84,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (customerRepository.existsByEmail(customer.getEmail())) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_EMAIL_EXISTS);
         }
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override

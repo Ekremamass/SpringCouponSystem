@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Lazy
 public interface AdminService {
-    void addCompany(Company company) throws CouponSystemException;
+    Company addCompany(Company company) throws CouponSystemException;
 
     void updateCompany(int id, Company company) throws CouponSystemException;
 
@@ -22,7 +21,7 @@ public interface AdminService {
 
     Company getOneCompany(int id) throws CouponSystemException;
 
-    void addCustomer(Customer customer) throws CouponSystemException;
+    Customer addCustomer(Customer customer) throws CouponSystemException;
 
     void updateCustomer(int id, Customer customer) throws CouponSystemException;
 

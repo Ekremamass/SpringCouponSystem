@@ -25,11 +25,11 @@ public class AdminController {
 
     @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCompany(@RequestHeader(value = "Authorization") UUID token, @RequestBody Company company) throws CouponSystemException {
+    public Company addCompany(@RequestHeader(value = "Authorization") UUID token, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINISTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
-        adminService.addCompany(company);
+        return adminService.addCompany(company);
     }
 
     @PutMapping("company/{id}")
@@ -69,11 +69,11 @@ public class AdminController {
 
     @PostMapping("customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCustomer(@RequestHeader(value = "Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException {
+    public Customer addCustomer(@RequestHeader(value = "Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINISTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
-        adminService.addCustomer(customer);
+        return adminService.addCustomer(customer);
     }
 
     @PutMapping("customer/{id}")
