@@ -23,26 +23,26 @@ public class AdminServiceTest {
 
         Test.test("Admin Service - bad login - wrong email");
         try {
-            adminService = (AdminServiceImpl) loginManager.login("stam@email.com", "admin", ClientType.ADMINSTRATOR);
+            adminService = (AdminServiceImpl) loginManager.login("stam@email.com", "admin", ClientType.ADMINISTRATOR);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
         Test.test("Admin Service - bad login - wrong password");
         try {
-            adminService = (AdminServiceImpl) loginManager.login("admin@admin.com", "stam", ClientType.ADMINSTRATOR);
+            adminService = (AdminServiceImpl) loginManager.login("admin@admin.com", "stam", ClientType.ADMINISTRATOR);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
         Test.test("Admin Service - bad login - wrong email and password");
         try {
-            adminService = (AdminServiceImpl) loginManager.login("stam@email.com", "stam", ClientType.ADMINSTRATOR);
+            adminService = (AdminServiceImpl) loginManager.login("stam@email.com", "stam", ClientType.ADMINISTRATOR);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Admin Service - good login");
         try {
-            adminService = (AdminServiceImpl) loginManager.login("admin@admin.com", "admin", ClientType.ADMINSTRATOR);
+            adminService = (AdminServiceImpl) loginManager.login("admin@admin.com", "admin", ClientType.ADMINISTRATOR);
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }

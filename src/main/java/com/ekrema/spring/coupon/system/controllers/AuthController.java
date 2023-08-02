@@ -1,5 +1,7 @@
 package com.ekrema.spring.coupon.system.controllers;
 
+import com.ekrema.spring.coupon.system.beans.Company;
+import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.security.LoginResponse;
 import com.ekrema.spring.coupon.system.security.User;
@@ -10,9 +12,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/auth")
+@CrossOrigin
 public class AuthController {
     @Autowired
     private AuthService authService;
+
+    @PostMapping("register/company")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void RegisterCompany(@RequestBody Company company) throws CouponSystemException {
+        authService.registerCompany(company);
+    }
+
+    @PostMapping("register/customer")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void RegisterCustomer(@RequestBody Customer customer) throws CouponSystemException {
+        authService.registerCustomer(customer);
+    }
 
     @PostMapping("login")
     @ResponseStatus(HttpStatus.CREATED)

@@ -20,7 +20,7 @@ public class LoginManager {
 
     public ClientService login(String email, String password, ClientType clientType) throws CouponSystemException {
         switch (clientType) {
-            case ADMINSTRATOR:
+            case ADMINISTRATOR:
                 if (((ClientService) adminService).login(email, password)) {
                     return (ClientService) adminService;
                 }

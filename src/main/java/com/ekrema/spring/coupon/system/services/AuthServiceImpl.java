@@ -1,5 +1,7 @@
 package com.ekrema.spring.coupon.system.services;
 
+import com.ekrema.spring.coupon.system.beans.Company;
+import com.ekrema.spring.coupon.system.beans.Customer;
 import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import com.ekrema.spring.coupon.system.exceptions.ErrMsg;
 import com.ekrema.spring.coupon.system.security.LoginResponse;
@@ -22,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(User user) throws CouponSystemException {
         switch (user.getClientType()) {
-            case ADMINSTRATOR:
+            case ADMINISTRATOR:
                 if (!((ClientService) adminService).login(user.getEmail(), user.getPassword())) {
                     throw new CouponSystemException(ErrMsg.LOGIN_FAILED);
                 }
@@ -40,5 +42,15 @@ public class AuthServiceImpl implements AuthService {
         }
         LoginResponse loginResponse = LoginResponse.builder().email(user.getEmail()).token(tokenService.addToken(user)).clientType(user.getClientType()).build();
         return loginResponse;
+    }
+
+    @Override
+    public void registerCompany(Company company) throws CouponSystemException {
+        adminService.addCompany(company);
+    }
+
+    @Override
+    public void registerCustomer(Customer customer) throws CouponSystemException {
+        adminService.addCustomer(customer);
     }
 }

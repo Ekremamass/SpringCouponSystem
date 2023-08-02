@@ -24,7 +24,7 @@ public class TokenServiceImpl implements TokenService {
         UUID token = UUID.randomUUID();
         int id = 0;
         switch (user.getClientType()) {
-            case ADMINSTRATOR:
+            case ADMINISTRATOR:
                 break;
             case COMPANY:
                 id = companyRepository.getIdByEmail(user.getEmail());
