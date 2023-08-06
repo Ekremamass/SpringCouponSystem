@@ -13,7 +13,7 @@ import java.util.List;
 public interface AdminService {
     Company addCompany(Company company) throws CouponSystemException;
 
-    Company updateCompany(int id, Company company) throws CouponSystemException;
+    void updateCompany(int id, Company company) throws CouponSystemException;
 
     void deleteCompany(int id) throws CouponSystemException;
 
@@ -23,7 +23,7 @@ public interface AdminService {
 
     Customer addCustomer(Customer customer) throws CouponSystemException;
 
-    Customer updateCustomer(int id, Customer customer) throws CouponSystemException;
+    void updateCustomer(int id, Customer customer) throws CouponSystemException;
 
     void deleteCustomer(int id) throws CouponSystemException;
 

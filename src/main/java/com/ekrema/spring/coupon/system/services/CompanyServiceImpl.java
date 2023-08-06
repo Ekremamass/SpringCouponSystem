@@ -32,7 +32,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     }
 
     @Override
-    public Coupon updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException {
+    public void updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException {
         if (!couponRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
@@ -46,7 +46,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (original.getCompany().equals(coupon.getCompany())) {
             throw new CouponSystemException(ErrMsg.COUPON_COMPANY_NOT_MATCH);
         }
-        return couponRepository.saveAndFlush(coupon);
+        couponRepository.saveAndFlush(coupon);
     }
 
     @Override

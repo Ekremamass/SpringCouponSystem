@@ -36,12 +36,12 @@ public class CompanyController {
 
     @PutMapping("coupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Coupon updateCoupon(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Coupon coupon) throws CouponSystemException {
+    public void updateCoupon(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Coupon coupon) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
         int companyId = tokenService.getId(token);
-        return companyService.updateCoupon(companyId, id, coupon);
+        companyService.updateCoupon(companyId, id, coupon);
     }
 
     @DeleteMapping("coupon/{id}")

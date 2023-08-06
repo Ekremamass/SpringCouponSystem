@@ -37,7 +37,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public Company updateCompany(int id, Company company) throws CouponSystemException {
+    public void updateCompany(int id, Company company) throws CouponSystemException {
         if (!companyRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST);
         }
@@ -47,7 +47,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (!companyRepository.findById(id).get().getName().equals(company.getName())) {
             throw new CouponSystemException(ErrMsg.COMPANY_NAME_NOT_MATCH);
         }
-        return companyRepository.saveAndFlush(company);
+        companyRepository.saveAndFlush(company);
     }
 
     @Override
@@ -88,14 +88,14 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public Customer updateCustomer(int id, Customer customer) throws CouponSystemException {
+    public void updateCustomer(int id, Customer customer) throws CouponSystemException {
         if (!customerRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_NOT_EXISTS);
         }
         if (id != customer.getId()) {
             throw new CouponSystemException(ErrMsg.CUSTOMER_ID_NOT_MATCH);
         }
-        return customerRepository.saveAndFlush(customer);
+        customerRepository.saveAndFlush(customer);
     }
 
     @Override

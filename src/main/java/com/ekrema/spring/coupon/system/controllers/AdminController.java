@@ -34,11 +34,11 @@ public class AdminController {
 
     @PutMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Company updateCompany(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
+    public void updateCompany(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINISTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
-        return adminService.updateCompany(id, company);
+        adminService.updateCompany(id, company);
     }
 
     @DeleteMapping("company/{id}")
@@ -78,11 +78,11 @@ public class AdminController {
 
     @PutMapping("customer/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Customer updateCustomer(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
+    public void updateCustomer(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMINISTRATOR)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
-        return adminService.updateCustomer(id, customer);
+        adminService.updateCustomer(id, customer);
     }
 
 
