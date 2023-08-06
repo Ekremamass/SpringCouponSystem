@@ -26,22 +26,22 @@ public class CompanyController {
 
     @PostMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCoupon(@RequestHeader(value = "Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException {
+    public Coupon addCoupon(@RequestHeader(value = "Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
         int companyId = tokenService.getId(token);
-        companyService.addCoupon(companyId, coupon);
+        return companyService.addCoupon(companyId, coupon);
     }
 
     @PutMapping("coupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCoupon(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Coupon coupon) throws CouponSystemException {
+    public Coupon updateCoupon(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id, @RequestBody Coupon coupon) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
         int companyId = tokenService.getId(token);
-        companyService.updateCoupon(companyId, id, coupon);
+        return companyService.updateCoupon(companyId, id, coupon);
     }
 
     @DeleteMapping("coupon/{id}")

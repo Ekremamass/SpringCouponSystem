@@ -8,9 +8,9 @@ import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import java.util.List;
 
 public interface CompanyService {
-    void addCoupon(int companyId, Coupon coupon) throws CouponSystemException;
+    Coupon addCoupon(int companyId, Coupon coupon) throws CouponSystemException;
 
-    void updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException;
+    Coupon updateCoupon(int companyId, int id, Coupon coupon) throws CouponSystemException;
 
     void deleteCoupon(int companyId, int id) throws CouponSystemException;
 
