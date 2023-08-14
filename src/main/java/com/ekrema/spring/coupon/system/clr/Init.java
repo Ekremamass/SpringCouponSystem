@@ -31,7 +31,7 @@ public class Init implements CommandLineRunner {
         companyRepository.findAll().forEach(System.out::println);
 
         System.out.println(Art.COUPONS);
-        couponRepository.saveAll(factoryUtils.initCoupons());
+        couponRepository.saveAll(factoryUtils.initCoupons(companyRepository.findAll()));
         couponRepository.findAll().forEach(System.out::println);
 
         System.out.println(Art.CUSTOMERS);

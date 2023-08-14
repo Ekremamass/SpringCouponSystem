@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class FactoryUtils {
@@ -43,19 +45,89 @@ public class FactoryUtils {
         return companies;
     }
 
-    public List<Coupon> initCoupons() {
-        Coupon c1 = Coupon.builder().company(companyRepository.findById(2).get()).category(Category.RESTAURANT).title("1+1 Burger").description("buy burger 200g and get second for free").startDate(Date.valueOf(LocalDate.now())).endDate(Date.valueOf(LocalDate.now().plusWeeks(2))).amount(100).price(70.0).image("https://media3.giphy.com/media/IgOEWPOgK6uVa/giphy.gif?cid=ecf05e47dtsmbz3xkfjphy7ul1fj4iluf7uke5ww1kmf7dao&rid=giphy.gif&ct=g").build();
+    public List<Coupon> initCoupons(List<Company> companies) {
+        List<Coupon> coupons = new ArrayList<>();
 
-        Coupon c2 = Coupon.builder().company(companyRepository.findById(7).get()).category(Category.ELECTRICITY).title("Dell free mouse").description("buy DELL laptop and get mouse for free").startDate(Date.valueOf(LocalDate.now())).endDate(Date.valueOf(LocalDate.now().plusWeeks(3))).amount(100).price(2900.0).image("https://media1.giphy.com/media/W639VPdqy5uX5NZPvN/giphy.gif?cid=ecf05e47fyz661w3v079lpayvlpazh00yqazjtbphrv1xva4&rid=giphy.gif&ct=g").build();
+        String[] foodTitles = {"50% Off Combo Meal", "Free Dessert with Entree", "Family Dinner Deal", "Weekend Brunch Special", "Pizza Night Discount"};
+        String[] foodDescriptions = {"Enjoy 50% off any combo meal on our menu.", "Get a free dessert of your choice when you order an entree.", "Special discount for family dinners this week.", "Join us for a delightful weekend brunch with exclusive savings.", "Grab a pizza night deal with discounted prices."};
 
-        Coupon c3 = Coupon.builder().company(companyRepository.findById(4).get()).category(Category.VACATION).title("All included London").description("everything included travel to london").startDate(Date.valueOf(LocalDate.now())).endDate(Date.valueOf(LocalDate.now().plusWeeks(2))).amount(50).price(4200.0).image("https://media1.giphy.com/media/3o6nV8OYdUhiuKja1i/giphy.gif?cid=ecf05e47zap0mk2hvwrmdnqhz58v80tufdxbq8tbjpyx3bbq&rid=giphy.gif&ct=g").build();
+        String[] electricityTitles = {"Smart Home Upgrade", "Energy-Efficient Appliances", "Free Energy Audit", "Solar Panel Installation", "Smart Thermostat Deal"};
+        String[] electricityDescriptions = {"Upgrade your home to a smart home with energy-efficient devices.", "Save on your electricity bills with new energy-efficient appliances.", "Schedule a free energy audit to optimize your energy usage.", "Switch to solar energy with a discounted panel installation.", "Get a smart thermostat and save on heating and cooling costs."};
 
-        Coupon c4 = Coupon.builder().company(companyRepository.findById(1).get()).category(Category.ELECTRICITY).title("Laptop + bag").description("buy laptop get free bag").startDate(Date.valueOf(LocalDate.now())).endDate(Date.valueOf(LocalDate.now().plusWeeks(4))).amount(100).price(3200.0).image("https://media1.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif?cid=ecf05e47buqlag8yzqk4s9ipwacv2n543e4i6jsuv6afgok5&rid=giphy.gif&ct=g").build();
+        String[] restaurantTitles = {"Fine Dining Experience", "Cuisine Tasting Menu", "Wine and Dine Night", "Date Night Special", "Chef's Table Reservation"};
+        String[] restaurantDescriptions = {"Indulge in a luxurious fine dining experience with exquisite dishes.", "Explore our cuisine tasting menu and savor a variety of flavors.", "Join us for a wine and dine night with exclusive pairings.", "Make your date night memorable with our special menu.", "Reserve a seat at the chef's table for an exclusive culinary adventure."};
 
-        Coupon c5 = Coupon.builder().company(companyRepository.findById(9).get()).category(Category.FOOD).title("6+2 ON ALL DRINKS").description("get 8 carton instead of 6 - All Drinks").startDate(Date.valueOf(LocalDate.now().minusWeeks(2))).endDate(Date.valueOf(LocalDate.now().minusDays(2))).amount(50).price(48.0).image("https://media4.giphy.com/media/BdXrpSYzVOf0A/giphy.gif?cid=ecf05e47q738c0ciq6v7l7e93d0dueihxw8y7kqjgiprr2g4&ep=v1_gifs_search&rid=giphy.gif&ct=g").build();
+        String[] vacationTitles = {"Tropical Getaway", "Adventure Expedition", "Cultural Immersion Tour", "Luxury Resort Retreat", "Weekend Escape Package"};
+        String[] vacationDescriptions = {"Escape to a tropical paradise and relax on white sandy beaches.", "Embark on an exciting adventure expedition to breathtaking destinations.", "Immerse yourself in local culture with our guided tour experience.", "Indulge in a luxury resort retreat with top-notch amenities.", "Experience a perfect weekend escape with our curated package."};
 
-        List<Coupon> coupons = List.of(c1, c2, c3, c4, c5);
+        Random random = new Random();
+
+        for (Company company : companies) {
+            for (int i = 0; i < 5; i++) {
+                Category category = Category.values()[random.nextInt(Category.values().length)];
+                String title, description;
+
+                switch (category) {
+                    case FOOD:
+                        title = foodTitles[random.nextInt(foodTitles.length)];
+                        description = foodDescriptions[random.nextInt(foodDescriptions.length)];
+                        break;
+                    case ELECTRICITY:
+                        title = electricityTitles[random.nextInt(electricityTitles.length)];
+                        description = electricityDescriptions[random.nextInt(electricityDescriptions.length)];
+                        break;
+                    case RESTAURANT:
+                        title = restaurantTitles[random.nextInt(restaurantTitles.length)];
+                        description = restaurantDescriptions[random.nextInt(restaurantDescriptions.length)];
+                        break;
+                    case VACATION:
+                        title = vacationTitles[random.nextInt(vacationTitles.length)];
+                        description = vacationDescriptions[random.nextInt(vacationDescriptions.length)];
+                        break;
+                    default:
+                        title = "Default Title";
+                        description = "Default Description";
+                }
+
+                Date startDate = Date.valueOf(LocalDate.now().plusDays(i * 7));
+                Date endDate = Date.valueOf(LocalDate.now().plusDays(i * 7 + 14));
+                int amount = random.nextInt(50) + 50;
+                double price = random.nextInt(500) + 50.0;
+                String image = generateCouponImageURL(category);
+
+                Coupon coupon = Coupon.builder()
+                        .company(company)
+                        .category(category)
+                        .title(title)
+                        .description(description)
+                        .startDate(startDate)
+                        .endDate(endDate)
+                        .amount(amount)
+                        .price(price)
+                        .image(image)
+                        .build();
+
+                coupons.add(coupon);
+            }
+        }
+
         return coupons;
+    }
+
+
+    private String generateCouponImageURL(Category category) {
+        switch (category) {
+            case FOOD:
+                return "https://media.giphy.com/media/eSQKNSmg07dHq/giphy.gif"; // Replace with actual food image URL
+            case ELECTRICITY:
+                return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif"; // Replace with actual electricity image URL
+            case RESTAURANT:
+                return "https://media.giphy.com/media/TGcD6N8uzJ9FXuDV3a/giphy.gif"; // Replace with actual restaurant image URL
+            case VACATION:
+                return "https://media.giphy.com/media/C2L2bXRnv2chSO1mAH/giphy.gif"; // Replace with actual vacation image URL
+            default:
+                return "";
+        }
     }
 
     public List<Customer> initCustomers() {
