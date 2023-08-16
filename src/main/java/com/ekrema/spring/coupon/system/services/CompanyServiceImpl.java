@@ -25,9 +25,10 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (couponRepository.existsByCompany_idAndTitle(companyId, coupon.getTitle())) {
             throw new CouponSystemException(ErrMsg.COUPON_TITLE_EXISTS);
         }
-        if (coupon.getCompany().getId() != companyId) {
-            throw new CouponSystemException(ErrMsg.COUPON_WRONG_COMPANY);
+        if (coupon.getEndDate().before(coupon.getStartDate())) {
+            throw new CouponSystemException(ErrMsg.END_DATE_BEFORE);
         }
+        coupon.setCompany(companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST)));
         return couponRepository.save(coupon);
     }
 
@@ -36,16 +37,15 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (!couponRepository.existsById(id)) {
             throw new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS);
         }
-        if (coupon.getCompany().getId() != companyId) {
-            throw new CouponSystemException(ErrMsg.COUPON_WRONG_COMPANY);
-        }
         Coupon original = couponRepository.findById(id).get();
-        if (original.getId() != coupon.getId()) {
-            throw new CouponSystemException(ErrMsg.COUPON_ID_NOT_MATCH);
-        }
-        if (original.getCompany().equals(coupon.getCompany())) {
+        if (original.getCompany().getId() != companyId) {
             throw new CouponSystemException(ErrMsg.COUPON_COMPANY_NOT_MATCH);
         }
+        if (coupon.getEndDate().before(coupon.getStartDate())) {
+            throw new CouponSystemException(ErrMsg.END_DATE_BEFORE);
+        }
+        coupon.setCompany(companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.COMPANY_NOT_EXIST)));
+        coupon.setId(id);
         couponRepository.saveAndFlush(coupon);
     }
 

@@ -18,12 +18,13 @@ public enum ErrMsg {
     COUPON_WRONG_COMPANY("cannot add or change coupon of another company"),
     COUPON_ID_NOT_MATCH("cannot update coupon id"),
     COUPON_NOT_EXISTS("no coupon exists with given id"),
-    COUPON_COMPANY_NOT_MATCH("cannot update company of coupon"),
+    COUPON_COMPANY_NOT_MATCH("cannot update coupon of another company"),
     COUPON_ALREADY_PURCHASED("cannot purchase coupon again"),
     COUPON_AMOUNT_ZERO("cannot purchase coupon - there is no coupons left"),
     COUPON_EXPIRED("cannot purchase expired coupon"),
     LOGIN_FAILED("wrong login details"),
-    UNAUTHORIZED("token or client type is wrong");
+    UNAUTHORIZED("token or client type is wrong"),
+    END_DATE_BEFORE("end date should be after start date");
     private String message;
 
     ErrMsg(String message) {

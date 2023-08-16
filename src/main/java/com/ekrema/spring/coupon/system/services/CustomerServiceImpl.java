@@ -22,8 +22,8 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public void purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException {
-        coupon = couponRepository.findById(coupon.getId()).orElseThrow(() -> new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS));
+    public void purchaseCoupon(int customerId, int id) throws CouponSystemException {
+        Coupon coupon = couponRepository.findById(id).orElseThrow(() -> new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS));
         if (couponRepository.existsPurchase(customerId, coupon.getId()) == 1) {
             throw new CouponSystemException(ErrMsg.COUPON_ALREADY_PURCHASED);
         }
@@ -56,5 +56,10 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     @Override
     public Customer getCustomerDetails(int customerId) throws CouponSystemException {
         return customerRepository.findById(customerId).orElseThrow(() -> new CouponSystemException(ErrMsg.CUSTOMER_NOT_EXISTS));
+    }
+
+    @Override
+    public List<Coupon> getAllCoupons() {
+        return couponRepository.findAll();
     }
 }

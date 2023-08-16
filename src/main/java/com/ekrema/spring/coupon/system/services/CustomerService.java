@@ -8,7 +8,7 @@ import com.ekrema.spring.coupon.system.exceptions.CouponSystemException;
 import java.util.List;
 
 public interface CustomerService {
-    void purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException;
+    void purchaseCoupon(int customerId, int id) throws CouponSystemException;
 
     List<Coupon> getCustomerCoupons(int customerId);
 
@@ -17,4 +17,6 @@ public interface CustomerService {
     List<Coupon> getCustomerCoupons(int customerId, double maxPrice);
 
     Customer getCustomerDetails(int customerId) throws CouponSystemException;
+
+    List<Coupon> getAllCoupons();
 }

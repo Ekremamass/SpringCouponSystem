@@ -23,14 +23,14 @@ public class CustomerController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("purchase")
+    @PostMapping("purchase/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void purchaseCoupon(@RequestHeader(value = "Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException {
+    public void purchaseCoupon(@RequestHeader(value = "Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
         }
         int customerId = tokenService.getId(token);
-        customerService.purchaseCoupon(customerId, coupon);
+        customerService.purchaseCoupon(customerId, id);
     }
 
     @GetMapping("coupons")
@@ -69,4 +69,13 @@ public class CustomerController {
         int customerId = tokenService.getId(token);
         return customerService.getCustomerDetails(customerId);
     }
+
+    @GetMapping("all")
+    public List<Coupon> getAllCoupons(@RequestHeader(value = "Authorization") UUID token) throws CouponSystemException {
+        if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
+            throw new CouponSystemException(ErrMsg.UNAUTHORIZED);
+        }
+        return customerService.getAllCoupons();
+    }
+
 }

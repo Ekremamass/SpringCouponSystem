@@ -45,14 +45,14 @@ public class CustomerServiceTest {
         Test.test("Customer Service - good purchase coupon id=1");
         Coupon toPurchase = couponRepository.findById(1).orElseThrow(() -> new CouponSystemException(ErrMsg.COUPON_NOT_EXISTS));
         try {
-            customerService.purchaseCoupon(customerId, toPurchase);
+            customerService.purchaseCoupon(customerId, toPurchase.getId());
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
 
         Test.test("Customer Service - bad purchase - already purchased");
         try {
-            customerService.purchaseCoupon(customerId, toPurchase);
+            customerService.purchaseCoupon(customerId, toPurchase.getId());
         } catch (CouponSystemException e) {
             System.out.println(e.getMessage());
         }
