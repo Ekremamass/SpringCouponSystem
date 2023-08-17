@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/admin")
+@CrossOrigin
 public class AdminController {
     @Autowired
     private AdminService adminService;

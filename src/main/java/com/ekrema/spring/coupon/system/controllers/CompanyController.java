@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/company")
+@CrossOrigin
 public class CompanyController {
 
     @Autowired
