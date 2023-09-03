@@ -79,4 +79,9 @@ public class CustomerController {
         return customerService.getAllCoupons();
     }
 
+    @GetMapping("latest")
+    public List<Coupon> getLatestCoupons() throws CouponSystemException {
+        return customerService.getLatestCoupons();
+    }
+
 }

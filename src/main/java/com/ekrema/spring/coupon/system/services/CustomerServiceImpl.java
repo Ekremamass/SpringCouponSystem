@@ -62,4 +62,9 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     public List<Coupon> getAllCoupons() {
         return couponRepository.findAll();
     }
+
+    @Override
+    public List<Coupon> getLatestCoupons() {
+        return couponRepository.findTop5ByOrderByEndDateAsc();
+    }
 }

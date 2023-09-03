@@ -19,4 +19,6 @@ public interface CustomerService {
     Customer getCustomerDetails(int customerId) throws CouponSystemException;
 
     List<Coupon> getAllCoupons();
+
+    List<Coupon> getLatestCoupons();
 }

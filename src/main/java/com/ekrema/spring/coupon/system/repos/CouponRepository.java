@@ -52,5 +52,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     void deleteByEndDateBefore(Date date);
 
+    List<Coupon> findTop5ByOrderByEndDateAsc();
+
 
 }
